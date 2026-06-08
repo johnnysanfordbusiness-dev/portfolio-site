@@ -1,8 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
-
 const EMPTY_FORM = { name: '', email: '', subject: '', message: '' }
 
 function FadeIn({ children, delay = 0 }) {
@@ -80,21 +78,13 @@ export default function Contact() {
     setStatus('sending')
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: ACCESS_KEY,
-          name: form.name,
-          email: form.email,
-          subject: form.subject || 'Portfolio Inquiry',
-          message: form.message,
-        }),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(e.target)).toString(),
       })
 
-      const data = await res.json()
-
-      if (data.success) {
+      if (res.ok) {
         setStatus('success')
         setForm(EMPTY_FORM)
       } else {
@@ -116,6 +106,19 @@ export default function Contact() {
         margin: '0 auto',
       }}
     >
+      {/*
+        Netlify build-bot detection form.
+        This static HTML is never shown to users but must exist in the
+        rendered output so Netlify registers the form at deploy time.
+      */}
+      <form name="contact" data-netlify="true" hidden>
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="subject" />
+        <textarea name="message" />
+      </form>
+
       <FadeIn>
         <p style={{
           fontFamily: 'monospace', fontSize: '12px', color: '#00ff88',
@@ -149,7 +152,14 @@ export default function Contact() {
       }}>
         {/* Form */}
         <FadeIn delay={0.1}>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <form
+            name="contact"
+            onSubmit={handleSubmit}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
+          >
+            {/* Required by Netlify to identify which form is submitting */}
+            <input type="hidden" name="form-name" value="contact" />
+
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <Field label="// NAME" name="name" value={form.name} onChange={handleChange} />
               <Field label="// EMAIL" name="email" type="email" value={form.email} onChange={handleChange} />
