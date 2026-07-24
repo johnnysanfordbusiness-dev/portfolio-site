@@ -106,19 +106,6 @@ export default function Contact() {
         margin: '0 auto',
       }}
     >
-      {/*
-        Netlify build-bot detection form.
-        This static HTML is never shown to users but must exist in the
-        rendered output so Netlify registers the form at deploy time.
-      */}
-      <form name="contact" data-netlify="true" hidden>
-        <input type="hidden" name="form-name" value="contact" />
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="text" name="subject" />
-        <textarea name="message" />
-      </form>
-
       <FadeIn>
         <p style={{
           fontFamily: 'monospace', fontSize: '12px', color: '#00ff88',

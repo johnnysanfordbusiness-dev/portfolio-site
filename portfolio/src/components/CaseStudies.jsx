@@ -6,18 +6,38 @@ const studies = [
     id: 'performance',
     tag: 'CS-001',
     title: "Sanford's Performance",
-    subtitle: 'Full-Stack Business Web Architecture',
-    status: 'DEPLOYED',
-    statusColor: '#00ff88',
+    subtitle: 'Full-Stack AI Sales & Agentic Platform',
+    status: 'PRODUCTION',
+    statusColor: '#f59e0b',
     description:
-      "Architected the complete digital presence for Sanford's Performance — a modular, high-performance web system designed for scalability. Built with a component-driven architecture enabling rapid iteration while maintaining strict UI consistency across all touchpoints.",
+      'Sole architect and developer of a private, full-stack AI lead-generation, CRM, and sales-automation platform. Built with Python 3.12, FastAPI, PostgreSQL 16, React 18 with TypeScript, and Docker Compose. 339 backend tests passing across 8 completed build phases.',
     impact: [
-      'Component-driven design system with zero duplication',
-      'Sub-2s load times through aggressive optimization',
-      'Responsive architecture scaling from mobile to 4K',
+      'Deterministic ICP scoring using a local Hermes 3 8B model via Ollama for structured fact extraction, with a weighted Python rubric instead of stochastic rating prompts',
+      'Playwright lead scrapers with provider-pattern abstraction and deduplication precedence logic (phone, then domain, then name plus geo)',
+      'Kanban CRM with drag-and-drop',
+      'Stripe Checkout integration with HMAC-verified idempotent webhooks, verified against real Stripe test-mode including replay safety',
+      "Also designed and shipped the company's public-facing marketing site",
     ],
-    stack: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
-    metrics: [{ label: 'Performance', value: '98' }, { label: 'SEO', value: '100' }, { label: 'A11y', value: '95' }],
+    stack: ['Python', 'FastAPI', 'PostgreSQL', 'React', 'TypeScript', 'Docker', 'Ollama', 'Agentic AI'],
+    metrics: [{ label: 'Tests Passing', value: '339' }, { label: 'Build Phases', value: '8' }],
+    link: '#',
+  },
+  {
+    id: 'agentic-architecture',
+    tag: 'CS-004',
+    title: 'Agentic Architecture & Orchestration Layer',
+    subtitle: 'AI Agent System Design',
+    status: 'PRODUCTION',
+    statusColor: '#f59e0b',
+    description:
+      "The orchestration and safety layer underneath Sanford's Performance's agent templates: how each agent is isolated at deploy time, how plain-language requests get compiled into an executable workflow graph, and how every public-facing agent surface is guarded against adversarial input.",
+    impact: [
+      'Four production agent templates with clone-on-deploy isolation, so each customer instance runs on its own isolated clone with no shared state',
+      'Natural-language-to-node-graph workflow builder on a React Flow canvas, compiling plain-language instructions into an executable agent workflow',
+      '25-entry adversarial prompt-injection regression corpus (floor: 5 consecutive 5/5 runs), an output-side instruction-leak guard, and Redis sliding-window circuit breakers on every public agent surface',
+    ],
+    stack: ['Agentic AI', 'Python', 'React Flow', 'Redis', 'Ollama'],
+    metrics: [{ label: 'Agent Templates', value: '4' }, { label: 'Regression Corpus', value: '25' }, { label: 'Isolation', value: 'Clone-on-Deploy' }],
     link: '#',
   },
   {
@@ -54,6 +74,24 @@ const studies = [
     ],
     stack: ['React', 'JavaScript', 'CSS3', 'REST APIs'],
     metrics: [{ label: 'Data Streams', value: '5+' }, { label: 'Latency', value: '<200ms' }, { label: 'Uptime', value: '99.9%' }],
+    link: '#',
+  },
+  {
+    id: 'package-tracking',
+    tag: 'CS-005',
+    title: 'Package Tracking & Scanning System',
+    subtitle: 'Mobile Logistics Automation, The Statler Hotel at Cornell',
+    status: 'DEPLOYED',
+    statusColor: '#00ff88',
+    description:
+      'Collaborated with the IT department to design and implement a mobile package scanning system for a high-volume hotel receiving operation, handling the daily package load for the property. The system replaced manual logging with mobile scanning, cutting processing time and eliminating tracking errors for guests and staff awaiting deliveries.',
+    impact: [
+      'Co-designed the scanning workflow with IT to replace manual, error-prone package logging',
+      'Reduced processing time and eliminated tracking errors across a high-volume daily package flow',
+      'Trained and supervised incoming staff on the new system and broader warehouse protocols',
+    ],
+    stack: ['Mobile Scanning', 'Process Design', 'Systems Collaboration'],
+    metrics: [{ label: 'Role', value: 'Co-Designer' }, { label: 'Scope', value: 'Property-Wide' }],
     link: '#',
   },
 ]
@@ -137,22 +175,42 @@ function CaseStudyCard({ study, index }) {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '1rem' }}>
-            <motion.div
-              animate={{ rotate: expanded ? 45 : 0 }}
-              transition={{ duration: 0.2 }}
-              style={{
-                width: '32px', height: '32px',
-                border: '1px solid rgba(0,255,136,0.3)',
-                borderRadius: '50%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: '#00ff88', fontSize: '18px', lineHeight: 1,
-                flexShrink: 0,
-              }}
-            >
-              +
-            </motion.div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {!expanded && (
+                <>
+                  <span style={{
+                    color: '#64748b', fontFamily: 'monospace', fontSize: '9px',
+                    letterSpacing: '0.1em', whiteSpace: 'nowrap',
+                  }}>
+                    CLICK TO EXPAND
+                  </span>
+                  <motion.span
+                    animate={{ opacity: [0.3, 1, 0.3] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    style={{
+                      width: '6px', height: '6px', borderRadius: '50%',
+                      background: '#00ff88', flexShrink: 0,
+                    }}
+                  />
+                </>
+              )}
+              <motion.div
+                animate={{ rotate: expanded ? 45 : 0 }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  width: '32px', height: '32px',
+                  border: '1px solid rgba(0,255,136,0.3)',
+                  borderRadius: '50%',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: '#00ff88', fontSize: '18px', lineHeight: 1,
+                  flexShrink: 0,
+                }}
+              >
+                +
+              </motion.div>
+            </div>
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-              {study.stack.slice(0, 2).map(t => (
+              {study.stack.slice(0, 4).map(t => (
                 <span key={t} style={{
                   color: '#64748b', fontFamily: 'monospace', fontSize: '11px',
                   background: 'rgba(26,26,58,0.5)', padding: '3px 10px', borderRadius: '3px',

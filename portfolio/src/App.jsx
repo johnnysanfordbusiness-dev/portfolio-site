@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Stack from './components/Stack'
 import CaseStudies from './components/CaseStudies'
+import Testimonials from './components/Testimonials'
 import Process from './components/Process'
 import Contact from './components/Contact'
 
@@ -69,6 +70,7 @@ export default function App() {
         <About />
         <Stack />
         <CaseStudies />
+        <Testimonials />
         <Process />
         <Contact />
         <Footer />
